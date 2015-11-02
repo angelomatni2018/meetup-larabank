@@ -27,9 +27,9 @@ class Account {
 
 	public function displayAmount($type = 'dogecoins')
 	{
-		/**
-		 * Write Code Here for Exercise 1
-		 */
+		if (is_numeric($this->dogecoins)) 
+			return $this->dogecoins > 0 ? $this->dogecoins : "Sorry, you do not have any dogecoins";
+		return "HI";
 	}
 
 	public function deposit($amount)
@@ -38,7 +38,7 @@ class Account {
 		 * Write Code Here for Exercise 1 Extra Credit
 		 */
 
-		// $this->dogecoins = $this->dogecoins + $amount;
+		$this->dogecoins = $this->dogecoins + $amount;
 	}
 
 	public function canConvert($type) {

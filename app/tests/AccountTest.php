@@ -10,25 +10,24 @@ class AccountTest extends PHPUnit_Framework_TestCase {
 	{
 		m::close();
 	}
-
-	public function testCreatedInstanceIsInstanceOfAccount()
+	
+	public function testCreatedInstanceIsInstanceOfAccount() 
 	{
-		// $account = new Account('Hao', 30);
-		// $this->assertInstanceOf('LaraBank\Account', $account);
+		$account = new Account('Hao', 30);
+		$this->assertInstanceOf('LaraBank\Account', $account);
 	}
 
-	// public function testDepositSuccessfullyAddsToAccount()
-	// {
-	// 	$account = new Account('Hao', 20);
-	// 	$account->deposit(30);
-	// 	$this->assertEquals(50, $account->getDogecoinsAmount());
-	// }
+	 public function testDepositSuccessfullyAddsToAccount() 
+	 {
+	 	$account = new Account('Hao', 20);
+	 	$account->deposit(30);
+	 	$this->assertEquals(50, $account->getDogecoinsAmount());
+	 }
 
-	public function xtestDisplayAmountIfUserHasNoAmount()
+	public function testDisplayAmountIfUserHasNoAmount()
 	{
-		/**
-		 * Write Test for Exercise 1 Here
-		 */
+		$account = new Account('Hao', 0);
+		$this->assertEquals("Sorry, you do not have any dogecoins", $account->displayAmount());
 	}
 
 	public function xtestDisplayAmountIfUserHasSomeAmount()

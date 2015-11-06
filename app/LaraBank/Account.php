@@ -15,10 +15,10 @@ class Account {
 		}
 	}
 
-	// public function setConverter(Converter $converter)
-	// {
-	// 	$this->converter = $converter;
-	// }
+	public function setConverter(Converter $converter)
+	{
+	 	$this->converter = $converter;
+	}
 
 	public function getDogecoinsAmount()
 	{
@@ -27,24 +27,27 @@ class Account {
 
 	public function displayAmount($type = 'dogecoins')
 	{
-		if (is_numeric($this->dogecoins)) 
-			return $this->dogecoins > 0 ? $this->dogecoins : "Sorry, you do not have any dogecoins";
-		return "HI";
+		if ($this->dogecoins === 0) {
+			return "Sorry, you do not have any dogecoins";
+		} else if ($type === 'USD') {
+			$usd = $this->converter->convert($this->dogecoins);
+			return "You have $usd USD";
+		}
+		
+		return "You have ".$this->dogecoins; 
 	}
 
 	public function deposit($amount)
 	{
-		/**
-		 * Write Code Here for Exercise 1 Extra Credit
-		 */
-
-		$this->dogecoins = $this->dogecoins + $amount;
+		if (is_numeric($this->dogecoins)) 
+			if ($amount > 0)
+				$this->dogecoins = $this->dogecoins + $amount;
+		else
+			return new \InvalidArgumentException("Deposit a numerical amount.");
 	}
 
 	public function canConvert($type) {
-		/**
-		 * Write Code Here for Exercise 2
-		 */
+		return $this->converter->getCurrencyName() === $type;
 	}
 
 }

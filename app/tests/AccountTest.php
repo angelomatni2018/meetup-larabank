@@ -30,53 +30,52 @@ class AccountTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals("Sorry, you do not have any dogecoins", $account->displayAmount());
 	}
 
-	public function xtestDisplayAmountIfUserHasSomeAmount()
+	public function testDisplayAmountIfUserHasSomeAmount()
 	{
-		/**
-		 * Write Test for Exercise 1 Here
-		 */
+		$account = new Account('Hao', 20);
+		$this->assertEquals("You have 20", $account->displayAmount());
 	}
 
-	public function xtestDepositIfAmountIsLessThanZero()
+	public function testDepositIfAmountIsLessThanZero()
 	{
-		/**
-		 * Write Test for Exercise 1 Extra Credit Here
-		 */
+		$account = new Account('Hao',50);
+		$account->deposit(-1);
+		$this->assertEquals(50, $account->getDogecoinsAmount());
 	}
 
 	
-	public function xtestDepositIfAmountIsNotANumber()
+	public function testDepositIfAmountIsNotANumber()
 	{
-		/**
-		 * Write Test for Exercise 1 Extra Credit Here
-		 * Don't know how to assert Exceptions?
-		 * check out http://bit.ly/1ACZsAE
-		 */
+		$acc = new Account('Hao', 10);
+		$acc->deposit('Not a number');
+		$this->assertEquals(10, $acc->getDogecoinsAmount());
 	}
 
-	// public function testDisplayAmountToUSD()
-	// {
-	// 	$account = new Account('Hao', 10);
-	// 	$converter = new Converter();
-	// 	$account->setConverter($converter);
-	// 	$msg = $account->displayAmount('USD');
-	// 	$this->assertContains('You have 25 USD', $msg);
-	// }
+	public function testDisplayAmountToUSD()
+	{
+	 	$account = new Account('Hao', 10);
+	 	$converter = new Converter();
+	 	$account->setConverter($converter);
+	 	$msg = $account->displayAmount('USD');
+	 	$this->assertContains('You have 25 USD', $msg);
+	}
 
-	// public function testDisplayAmountToUSDMocked()
-	// {
-	// 	$account = new Account('Hao', 10);
-	// 	$converter = m::mock('\LaraBank\Converter');
-	// 	$converter->shouldReceive('convert')->times(1)->andReturn(1000);
-	// 	$account->setConverter($converter);
-	// 	$msg = $account->displayAmount('USD');
-	// 	$this->assertContains('You have 1000 USD', $msg);
-	// }
+	public function testDisplayAmountToUSDMocked()
+	{
+	 	$account = new Account('Hao', 10);
+	 	$converter = m::mock('\LaraBank\Converter');
+	 	$converter->shouldReceive('convert')->times(1)->andReturn(1000);
+	 	$account->setConverter($converter);
+	 	$msg = $account->displayAmount('USD');
+	 	$this->assertContains('You have 1000 USD', $msg);
+	}
 	
 	public function xtestCanConvertSuccessfulIfConverterSet()
 	{
-		/**
-		 * Write Code Here for Exercise 2
-		 */
+		$acc = new Account('Hao', 10);
+		$converter = m::mock('\LaraBank\Converter');
+		$converter->shouldReceive('getCurrencyName')->times(1)->andReturn('USD');
+		$account->setConverter($converter);
+		$this->assertTrue($account->canConvert('USD'));
 	}
 }
